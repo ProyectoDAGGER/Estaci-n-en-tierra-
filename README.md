@@ -236,3 +236,117 @@ height: 100vh;
 
 <img width="850" height="363" alt="image" src="https://github.com/user-attachments/assets/97a93181-eb61-406c-a6de-8b4676f1a12d" />
 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= productName %></title>
+    <meta charset="utf-8">
+    <meta name="description" content="<%= productDescription %>">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="icon" type="image/png" sizes="128x128" href="icons/favicon-128x128.png">
+  </head>
+  <body>
+    <!-- quasar:entry-point -->
+  </body>
+</html>
+
+
+<template>
+  <q-page>
+    <div style="background-color: gray; width: 10%; height: 30%; position: absolute; margin-left: 90%;">
+      <q-btn flat icon="photo_camera" label="Camara" @click="accionBoton1"/>
+      <q-btn flat icon="pin_drop" label="Ubicacion" @click="accionBoton2"/>
+      <q-btn flat icon="info" label="Informacion del drone dagger" @click="accionBoton2"/>
+    </div>
+
+    <div style="background-color: gray; width: 10%; height: 55%; position: absolute;">
+      <q-btn flat icon="photo_camera" label="Video" @click="accionBoton1"/>
+      <q-btn flat icon="pin_drop" label="Bateria" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Motores" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="radio" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="estructura del drone" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Seguridad" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Parametros" @click="accionBoton2"/>
+    </div>
+
+    <div id="map"></div>
+  </q-page>
+</template>
+
+<script>
+import mapboxgl from "mapbox-gl";
+
+export default {
+  mounted() {
+    mapboxgl.accessToken = "pk.eyJ1IjoiamxhcmExMjMiLCJhIjoiY2xzdXk2eGxqMmJrdjJxdGdxcG5nNTduZCJ9.-wQcOTVQSYzV_e0lCrauag";
+    const map = new mapboxgl.Map({
+      container: "map",
+      center: [-74.5, 40],
+      zoom: 9,
+    });
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+      map.flyTo({ center: [longitude, latitude], zoom: 13 });
+    });
+  },
+};
+</script>
+
+<style scoped>
+#map {
+  height: 100vh;
+}
+</style>
+##Implementa los botones y el mapa de Mapbox:
+
+<template>
+  <q-page>
+    <div style="background-color: gray; width: 10%; height: 30%; position: absolute; margin-left: 90%;">
+      <q-btn flat icon="photo_camera" label="Camara" @click="accionBoton1"/>
+      <q-btn flat icon="pin_drop" label="Ubicacion" @click="accionBoton2"/>
+      <q-btn flat icon="info" label="Informacion del drone dagger" @click="accionBoton2"/>
+    </div>
+
+    <div style="background-color: gray; width: 10%; height: 55%; position: absolute;">
+      <q-btn flat icon="photo_camera" label="Video" @click="accionBoton1"/>
+      <q-btn flat icon="pin_drop" label="Bateria" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Motores" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="radio" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="estructura del drone" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Seguridad" @click="accionBoton2"/>
+      <q-btn flat icon="pin_drop" label="Parametros" @click="accionBoton2"/>
+    </div>
+
+    <div id="map"></div>
+  </q-page>
+</template>
+
+<script>
+import mapboxgl from "mapbox-gl";
+
+export default {
+  mounted() {
+    mapboxgl.accessToken = "pk.eyJ1IjoiamxhcmExMjMiLCJhIjoiY2xzdXk2eGxqMmJrdjJxdGdxcG5nNTduZCJ9.-wQcOTVQSYzV_e0lCrauag";
+    const map = new mapboxgl.Map({
+      container: "map",
+      center: [-74.5, 40],
+      zoom: 9,
+    });
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+      map.flyTo({ center: [longitude, latitude], zoom: 13 });
+    });
+  },
+};
+</script>
+
+<style scoped>
+#map {
+  height: 100vh;
+}
+</style>
+El repositorio explica que la estación en tierra usa ROSBridge Suite para comunicar la interfaz web con ROS/MAVROS, lo que permite visualizar y controlar datos de vuelo desde el entorno gráfico (tipo QGroundControl o MissionPlanner, pero con integración nativa a ROS).
+
